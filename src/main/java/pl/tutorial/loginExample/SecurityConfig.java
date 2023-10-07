@@ -35,14 +35,14 @@ public class SecurityConfig {
     @Bean
     public InMemoryUserDetailsManager userDetailsManager() {
         UserDetails user = User
-                .withUsername("user")
-                .password(passwordEncoder().encode("pass")) // must encode, otherwise won't work
+                .withUsername(userLogin)
+                .password(passwordEncoder().encode(userPassword)) // must encode, otherwise won't work
                 .roles("USER")
                 .build();
 
         UserDetails admin = User
-                .withUsername("admin")
-                .password(passwordEncoder().encode("admin1"))
+                .withUsername(adminLogin)
+                .password(passwordEncoder().encode(adminPassword))
                 .roles("ADMIN")
                 .build();
 
