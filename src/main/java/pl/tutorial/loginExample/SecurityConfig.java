@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -53,13 +54,15 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(request -> request
+                        .requestMatchers("/app/**")
+                        .hasRole("USER")
                         .anyRequest()
                         .authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")
+                        .loginPage("/signIn")
                         .loginProcessingUrl("/login-action") // must start with slash '/' & must be the same in HTML form action
-                        .defaultSuccessUrl("/welcome", true) // must have 'true' parameter, otherwise redirect to localhost:8080/?continue
+                        .defaultSuccessUrl("/app/welcome", true) // must have 'true' parameter, otherwise redirect to localhost:8080/?continue
                         .permitAll()
                 )
                 .logout(logout -> logout
