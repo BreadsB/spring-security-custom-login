@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,7 +15,7 @@
                     <h1 class="text-2xl font-semibold">Login</h1>
                 </div>
                 <div class="divide-y divide-gray-200">
-                    <form name="f" action="login-action" method="POST">
+                    <form name="f" th:action="@{/login-action}" method="POST">
                     <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
 
                         <div class="relative">

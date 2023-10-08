@@ -43,7 +43,7 @@ public class SecurityConfig {
         UserDetails admin = User
                 .withUsername(adminLogin)
                 .password(passwordEncoder().encode(adminPassword))
-                .roles("ADMIN")
+                .roles("USER", "ADMIN")
                 .build();
 
         return new InMemoryUserDetailsManager(user, admin);
@@ -57,9 +57,9 @@ public class SecurityConfig {
                         .authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")
+                        .loginPage("/signin")
                         .loginProcessingUrl("/login-action") // must start with slash '/' & must be the same in HTML form action
-                        .defaultSuccessUrl("/welcome", true) // must have 'true' parameter, otherwise redirect to localhost:8080/?continue
+                        .defaultSuccessUrl("/app/welcome", true) // must have 'true' parameter, otherwise redirect to localhost:8080/?continue
                         .permitAll()
                 )
                 .logout(logout -> logout

@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class LoginController {
-    @GetMapping("/welcome")
+    @GetMapping("/app/welcome")
     public String getWelcomePage() {
-        return "welcome";
+        return "app/welcome";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/signin")
     public String getSignInPage() {
-        return "login";
+        return "signin";
     }
 }
