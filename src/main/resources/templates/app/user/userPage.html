@@ -7,5 +7,9 @@
 <body>
 <h1>This is userPage</h1>
 <a href="/app/admin/welcome">Go to admin page</a>
+<br>
+<form th:action="@{/perform_logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
 </body>
 </html>

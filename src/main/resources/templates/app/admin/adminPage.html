@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <title>Admin welcome page</title>
 </head>
 <body style="background-color: red">
     <h1>This is ADMIN page</h1>
 <a href="/app/user/welcome">Go to user page</a>
+    <br>
+    <form th:action="@{/perform_logout}" method="post">
+        <input type="submit" value="Logout" />
+    </form>
 </body>
 </html>
