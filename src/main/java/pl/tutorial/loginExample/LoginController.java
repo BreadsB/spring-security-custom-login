@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class LoginController {
 
     @GetMapping("/app/user/welcome")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public String getWelcomePage() {
         return "app/user/userPage";
     }
@@ -20,7 +19,6 @@ public class LoginController {
     }
 
     @GetMapping("/app/admin/welcome")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String getAdminWelcomePage() {
         return "app/admin/adminPage";
     }
