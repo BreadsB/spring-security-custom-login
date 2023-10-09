@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -53,13 +54,17 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(request -> request
+                        .requestMatchers("/app/admin**")
+                        .hasRole("ADMIN")
+                        .requestMatchers("/app/user**")
+                        .hasAnyRole("USER")
                         .anyRequest()
                         .authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/signin")
                         .loginProcessingUrl("/login-action") // must start with slash '/' & must be the same in HTML form action
-                        .defaultSuccessUrl("/app/welcome", true) // must have 'true' parameter, otherwise redirect to localhost:8080/?continue
+                        .successHandler(customAuthenticationSuccessHandler())
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -69,5 +74,10 @@ public class SecurityConfig {
                 );
 
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler customAuthenticationSuccessHandler() {
+        return new CustomAuthenticationSuccessHandler();
     }
 }
